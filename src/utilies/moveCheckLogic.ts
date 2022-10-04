@@ -27,3 +27,34 @@ export const isColumnOfThree=(newBoard:string[],boardSize:number,formulaForColum
        }
     }
 }
+//this function to match row [4 index]
+export const checkForRowOfFour=(newBoard:string[],boardSize:number,invalidMovies:number[])=>{
+    for(let i:number=0;i<boardSize*boardSize;i++){
+        const rowOfFour:number[]=[i,i+1,i+2,i+3];
+        const decidedColor:string=newBoard[i]
+        const isBlank:boolean=newBoard[i]===""
+
+        if(invalidMovies.includes(i)) continue;
+        if(rowOfFour.every((candy:number)=>newBoard[candy]===decidedColor && !isBlank)){
+            rowOfFour.forEach((candy:number)=>(newBoard[candy]=""))
+           return true
+        }
+    }
+
+}
+
+//this function to match row [3 index]
+export const checkForRowOfThree=(newBoard:string[],boardSize:number,invalidMovies:number[])=>{
+    for(let i:number=0;i<boardSize*boardSize;i++){
+        const rowOfThree:number[]=[i,i+1,i+2];
+        const decidedColor:string=newBoard[i]
+        const isBlank:boolean=newBoard[i]===""
+
+        if(invalidMovies.includes(i)) continue;
+        if(rowOfThree.every((candy:number)=>newBoard[candy]===decidedColor && !isBlank)){
+            rowOfThree.forEach((candy:number)=>(newBoard[candy]=""))
+           return true
+        }
+    }
+
+}

@@ -1,7 +1,8 @@
 import React from 'react'
 import {createSlice} from '@reduxjs/toolkit'
+import {moveBelowReducer} from './moveBelow'
 //declare the type of state
- type InitialStateType={
+export type InitialStateType={
     board:string[]
     boardSize:number
 }
@@ -17,11 +18,12 @@ const candySlice=createSlice({
     reducers:{
        updateBoard:(state,action)=>{
            state.board=action.payload
-       }
+       },
+       moveBelow:moveBelowReducer
     }
 })
 
 export default candySlice.reducer
-export const {updateBoard}=candySlice.actions
+export const {updateBoard,moveBelow}=candySlice.actions
 
 

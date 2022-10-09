@@ -10,8 +10,8 @@ const Board =()=>{
       })
     return(
         <div 
-          className="flex flex-wrap rounded-lg justify-center items-center" 
-          style={{width:`${6.25 * boardSize}rem`,}}
+          className="flex  flex-wrap rounded-lg justify-center items-center" 
+          style={{width:`${7 * boardSize}rem`,}}
           
         >
             {board.map((candy:string,index:number)=>(

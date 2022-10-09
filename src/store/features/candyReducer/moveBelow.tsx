@@ -3,7 +3,7 @@ import {formulaMoveBelow} from '../../../utilies/formulas'
 import {candies} from '../../../utilies/candyData'
 import { WritableDraft } from "immer/dist/types/types-external";
 
-export const moveBelowReducer =(state:WritableDraft<InitialStateType>)=>{
+export const moveBelowReducer =(state: WritableDraft<InitialStateType>)=>{
     const newBoard:string[]=[...state.board]
     const {boardSize}=state
     const rangeMoveBelow:number=formulaMoveBelow(boardSize)
@@ -29,9 +29,5 @@ export const moveBelowReducer =(state:WritableDraft<InitialStateType>)=>{
 
         //third
         if(boardChange) state.board=newBoard
-
-
     }
-
-
 }

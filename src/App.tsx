@@ -1,27 +1,24 @@
 import React, { useEffect } from 'react'
 import {useAppSelector,useAppDispatch} from './store/hooks'
-import {updateBoard,moveBelow} from './store/features/candySlice/candySlice'
+import {updateBoard,moveBelow,dragEnd} from './store/features/candyReducer/candySlice'
 import {createBoard} from './utilies/createBoard'
 import Board from './components/Board'
 import {isColumnOfFour,isColumnOfThree,checkForRowOfFour,checkForRowOfThree} from './utilies/moveCheckLogic'
 import {formulaForColumnOfFour,formulaForColumnOfThree,generateInvalidMovies} from './utilies/formulas'
 const App=()=>{
-  for(let i:number=0;i<=10;i++){
-    const len:number=3;
-    const arr:number[]= Array(len).fill(0).map((_value,index)=>index)
-    const yes=arr.includes((i))
-    //console.log(yes)
-
-  }
-  
+  const dispatch=useAppDispatch()
   //instead of useSelector((state)=>{return state.ReducerName}) we use useSelector(({ReducerName:{propertyOne,porpertyTwo,...}})=>{return specificProperty })
   const board=useAppSelector(({candy:{board}})=>{
     return board
   })
+  // const squareBeingDragged=useAppSelector(({candy:{squareBeingDragged}})=>{
+  //   return squareBeingDragged
+  // })
+  //console.log("s",dispatch(dragEnd()))
+ 
   const boardSize=useAppSelector(({candy:{boardSize}})=>{
     return boardSize
   })
-  const dispatch=useAppDispatch()
   //display the boardImage after the component loaded
   useEffect(()=>{
     dispatch(updateBoard(createBoard(boardSize)))
@@ -32,10 +29,12 @@ const App=()=>{
       const newBoard=[...board]
       isColumnOfFour(newBoard,boardSize,formulaForColumnOfFour(boardSize))
       checkForRowOfFour(newBoard,boardSize,generateInvalidMovies(boardSize,true))
-      checkForRowOfThree(newBoard,boardSize,generateInvalidMovies(boardSize,true))
       isColumnOfThree(newBoard,boardSize,formulaForColumnOfThree(boardSize))
+      checkForRowOfThree(newBoard,boardSize,generateInvalidMovies(boardSize,true))
       dispatch(updateBoard(newBoard))
-      dispatch(moveBelow())
+      setTimeout(()=>{
+        dispatch(moveBelow())
+      },2500)
     },150)
     return ()=>clearInterval(timeout)
 
